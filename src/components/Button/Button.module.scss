@@ -1,0 +1,39 @@
+.primary,
+.outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.75rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  transition: all 0.2s;
+  cursor: pointer;
+  border: none;        // ← reset dla <button>
+  outline: none;       // ← reset dla <button>
+}
+
+.primary {
+  background: var(--accent);
+  color: #0a0d12;
+  font-weight: 700;
+
+  &:hover {
+    background: #00ffb3;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 229, 160, 0.25);
+  }
+}
+
+.outline {
+  border: 1px solid var(--border);
+  color: var(--muted);
+  background: transparent;
+
+  &:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+}
