@@ -59,6 +59,12 @@
   flex-wrap: wrap;
 }
 
+.socials {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
 @media (max-width: 768px) {
   .inner {
     grid-template-columns: 1fr;

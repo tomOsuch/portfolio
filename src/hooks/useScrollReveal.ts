@@ -1,26 +1,36 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 
 const useScrollReveal = () => {
-    const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
-        const element = ref.current;
-        if (!element) return;
-        
-        const observer = new IntersectionObserver(([entry]) => {
-            if (entry.isIntersecting) {
-                element.classList.add('reveal');
-                observer.unobserve(element);
-            }
-        }, { threshold: 0.1 });
-        observer.observe(element);
-        
-        return () => {
-            observer.disconnect();
-        };
-    }, []);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
 
-    return ref;
-}
+    const element = el.querySelectorAll('.fade-in');
+    const targets = element.length > 0 ? Array.from(element) : [el];
 
-export default useScrollReveal
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry, i) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.classList.add('visible');
+            }, i * 100);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 },
+    );
+
+    targets.forEach((target) => observer.observe(target));
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  return ref;
+};
+
+export default useScrollReveal;

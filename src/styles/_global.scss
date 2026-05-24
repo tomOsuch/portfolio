@@ -77,3 +77,10 @@ a { text-decoration: none; }
     transform: none;
   }
 }
+
+// responsywność
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1.25rem;
+  }
+}
