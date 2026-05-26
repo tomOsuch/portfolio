@@ -1,7 +1,7 @@
-import { technologiesData } from '../../data/data'
-import useScrollReveal from '../../hooks/useScrollReveal'
-import SectionHeader from '../SectionHeader/SectionHeader'
-import styles from './Technologies.module.scss'
+import { technologiesData } from '../../data/data';
+import useScrollReveal from '../../hooks/useScrollReveal';
+import SectionHeader from '../SectionHeader/SectionHeader';
+import styles from './Technologies.module.scss';
 
 const Technologies = () => {
   const ref = useScrollReveal();
@@ -16,7 +16,7 @@ const Technologies = () => {
               <div className={styles.cardLabel}>{category.label}</div>
               <div className={styles.pills}>
                 {category.pills.map((pill, i) => (
-                  <span key={i} className={`${styles.pill} ${styles[pill.variant]}`}>
+                  <span key={i} className={`${styles.pill} variant-${pill.variant}`}>
                     {pill.label}
                   </span>
                 ))}
@@ -29,4 +29,4 @@ const Technologies = () => {
   );
 };
 
-export default Technologies
+export default Technologies;

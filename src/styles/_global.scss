@@ -84,3 +84,22 @@ a { text-decoration: none; }
     padding: 0 1.25rem;
   }
 }
+
+.pill,
+.tag {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: 3px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+
+.variant-java   { background: rgba(248, 152, 32, 0.15); color: #f89820; border: 1px solid rgba(248, 152, 32, 0.25); }
+.variant-spring { background: rgba(109, 179, 63, 0.15); color: #6db33f; border: 1px solid rgba(109, 179, 63, 0.25); }
+.variant-db     { background: rgba(51, 103, 145, 0.15); color: #79b8e0; border: 1px solid rgba(51, 103, 145, 0.30); }
+.variant-kafka  { background: rgba(255, 255, 255, 0.07); color: #ccc;   border: 1px solid rgba(255, 255, 255, 0.12); }
+.variant-docker { background: rgba(36, 150, 237, 0.12); color: #2496ed; border: 1px solid rgba(36, 150, 237, 0.20); }
+.variant-test   { background: rgba(0, 229, 160, 0.08);  color: var(--accent); border: 1px solid rgba(0, 229, 160, 0.20); }
+.variant-fe     { background: rgba(0, 170, 255, 0.10);  color: var(--accent2); border: 1px solid rgba(0, 170, 255, 0.20); }
+.variant-tool   { background: rgba(107, 115, 133, 0.15); color: #9aa0b0; border: 1px solid rgba(107, 115, 133, 0.20); }
