@@ -9,27 +9,33 @@ const Projects = () => {
   return (
     <section id="projects" className={styles.projects}>
       <div className="container">
-        <SectionHeader num="03." title="Projekty" />
+        <SectionHeader num="03" title="Projekty" />
         <div ref={ref} className={styles.grid}>
           {projectsData.map((project) => (
-            <div
+            <article
               key={project.id}
-              className={`${styles.card} ${project.inProgress ? styles.inProgress : ''} fade-in`}
+              className={`${styles.card} ${project.featured ? styles.featured : ''} fade-in`}
             >
               <div className={styles.cardHeader}>
                 <span className={styles.icon}>{project.icon}</span>
-                <a
-                  href={project.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.githubLink}
-                >
-                  GitHub ↗
-                </a>
+                <div className={styles.links}>
+                  {project.links.map((link) => (
+                    <a
+                      key={link.href}
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.link}
+                    >
+                      {link.label} ↗
+                    </a>
+                  ))}
+                </div>
               </div>
 
               <div className={styles.cardBody}>
-                <div className={styles.name}>{project.name}</div>
+                <h3 className={styles.name}>{project.name}</h3>
+                {project.status && <div className={styles.status}>{project.status}</div>}
                 <p className={styles.desc}>{project.description}</p>
               </div>
 
@@ -40,7 +46,7 @@ const Projects = () => {
                   </span>
                 ))}
               </div>
-            </div>
+            </article>
           ))}
         </div>
       </div>

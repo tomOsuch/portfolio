@@ -54,11 +54,52 @@
   margin-bottom: 0.15rem;
 }
 
+.roles {
+  list-style: none;
+  margin: 0 0 1.25rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
 .role {
   font-family: var(--font-mono);
   font-size: 0.78rem;
   color: var(--muted);
-  margin-bottom: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.6rem;
+  position: relative;
+  padding-left: 0.9rem;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 4px;
+    height: 1px;
+    background: var(--muted);
+  }
+}
+
+// ostatnie (aktualne) stanowisko wyróżnione
+.roleCurrent {
+  color: var(--text);
+
+  &::before {
+    background: var(--accent);
+    width: 6px;
+    height: 2px;
+  }
+}
+
+.roleDate {
+  font-size: 0.68rem;
+  color: var(--muted);
+  opacity: 0.75;
 }
 
 .projects {

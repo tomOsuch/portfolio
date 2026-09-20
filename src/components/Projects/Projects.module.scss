@@ -43,15 +43,37 @@
   }
 }
 
-.inProgress {
-  border-style: dashed;
-  opacity: 0.6;
+// karta projektu głównego — pełna szerokość siatki i stale widoczny akcent
+.featured {
+  grid-column: 1 / -1;
+  padding: 2.25rem;
+  border-color: rgba(0, 229, 160, 0.3);
+  background: linear-gradient(180deg, rgba(0, 229, 160, 0.04), transparent 60%), var(--card-bg);
+
+  &::before {
+    transform: scaleX(1);
+    height: 3px;
+  }
+
+  .name {
+    font-size: 1.35rem;
+  }
+
+  .desc {
+    font-size: 0.9rem;
+    max-width: 62ch;
+  }
+
+  .icon {
+    font-size: 2rem;
+  }
 }
 
 .cardHeader {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  gap: 1rem;
 }
 
 .icon {
@@ -59,7 +81,13 @@
   line-height: 1;
 }
 
-.githubLink {
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.link {
   font-family: var(--font-mono);
   font-size: 0.65rem;
   padding: 0.25rem 0.6rem;
@@ -67,7 +95,8 @@
   border-radius: 3px;
   color: var(--muted);
   text-decoration: none;
-  transition: all 0.2s;
+  white-space: nowrap;
+  transition: border-color 0.2s, color 0.2s;
 
   &:hover {
     border-color: var(--accent);
@@ -83,6 +112,15 @@
   font-size: 1rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
+}
+
+.status {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--accent);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
 }
 
 .desc {
@@ -105,12 +143,3 @@
   font-weight: 500;
   letter-spacing: 0.03em;
 }
-
-.java   { background: rgba(248, 152, 32, 0.15); color: #f89820; border: 1px solid rgba(248, 152, 32, 0.25); }
-.spring { background: rgba(109, 179, 63, 0.15); color: #6db33f; border: 1px solid rgba(109, 179, 63, 0.25); }
-.db     { background: rgba(51, 103, 145, 0.15); color: #79b8e0; border: 1px solid rgba(51, 103, 145, 0.30); }
-.kafka  { background: rgba(255, 255, 255, 0.07); color: #ccc;   border: 1px solid rgba(255, 255, 255, 0.12); }
-.docker { background: rgba(36, 150, 237, 0.12); color: #2496ed; border: 1px solid rgba(36, 150, 237, 0.20); }
-.test   { background: rgba(0, 229, 160, 0.08);  color: var(--accent); border: 1px solid rgba(0, 229, 160, 0.20); }
-.fe     { background: rgba(0, 170, 255, 0.10);  color: var(--accent2); border: 1px solid rgba(0, 170, 255, 0.20); }
-.tool   { background: rgba(107, 115, 133, 0.15); color: #9aa0b0; border: 1px solid rgba(107, 115, 133, 0.20); }

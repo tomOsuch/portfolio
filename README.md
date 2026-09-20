@@ -1,73 +1,52 @@
-# React + TypeScript + Vite
+# tomaszosuch.dev
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Strona portfolio — [tomaszosuch.dev](https://tomaszosuch.dev)
 
-Currently, two official plugins are available:
+Jednostronicowa wizytówka z sekcjami: doświadczenie, technologie, projekty i kontakt.
+Cała treść jest odseparowana od komponentów i trzymana w `src/data/data.ts`.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Stack
 
-## React Compiler
+- React 19 + TypeScript
+- Vite 8
+- Sass (CSS Modules + style globalne)
+- GitHub Pages + Cloudflare (domena i DNS)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Uruchomienie
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+yarn install
+yarn dev        # serwer deweloperski, otwiera przeglądarkę
+yarn build      # build produkcyjny do dist/
+yarn preview    # podgląd builda
+yarn lint       # ESLint
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Deploy
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+yarn deploy     # build + publikacja na branch gh-pages
 ```
+
+Domena pochodzi z pliku `public/CNAME`, `base` w `vite.config.ts` jest ustawione na `/`.
+Po zmianie metatagów lub `og-image.png` warto wymusić odświeżenie cache podglądu
+w LinkedIn Post Inspector.
+
+## Struktura
+
+```
+public/          CNAME, favicon, og-image.png, robots.txt, sitemap.xml
+src/
+├── components/  komponenty sekcji, każdy z własnym modułem .scss
+├── data/        data.ts — treść strony i typy TypeScript
+├── hooks/       useScrollReveal (IntersectionObserver)
+├── styles/      _variables.scss (custom properties), _global.scss
+└── utils/       pluralizeYears
+```
+
+## Konwencje
+
+- **CSS Modules** dla stylów komponentu, `_global.scss` dla tego, co współdzielone
+  (kontener, nagłówki sekcji, animacja `fade-in`, warianty kolorystyczne tagów `variant-*`)
+- **Warianty tagów** są globalne, żeby `Projects` i `Technologies` nie duplikowały tych samych kolorów
+- **Treść tylko w `data.ts`** — komponenty nie zawierają tekstów

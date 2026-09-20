@@ -5,7 +5,7 @@ interface TerminalProps {
   role: string;
   experience: number;
   stack: string[];
-  available: boolean;
+  location: string;
 }
 
 interface LineProps {
@@ -13,19 +13,21 @@ interface LineProps {
   value: string | number | boolean;
   type: 'str' | 'num' | 'val';
   comment?: string;
+  /** ostatnia linia obiektu — bez przecinka na końcu */
+  last?: boolean;
 }
 
-const Line = ({ label, value, type, comment }: LineProps) => (
+const Line = ({ label, value, type, comment, last = false }: LineProps) => (
   <div>
     &nbsp;&nbsp;
     <span className={styles.key}>"{label}"</span>:{' '}
     <span className={styles[type]}>{String(value)}</span>
     {comment && <span className={styles.comment}> {comment}</span>}
-    ,
+    {last ? '' : ','}
   </div>
 );
 
-const Terminal = ({ name, role, experience, stack, available }: TerminalProps) => {
+const Terminal = ({ name, role, experience, stack, location }: TerminalProps) => {
   return (
     <div className={styles.terminal}>
       <div className={styles.bar}>
@@ -37,9 +39,9 @@ const Terminal = ({ name, role, experience, stack, available }: TerminalProps) =
       <div className={styles.body}>
         <div className={styles.comment}>{'// Profil developera'}</div>
         <div>{'{'}</div>
-        <Line label="imię"     value={`"${name}"`}  type="str" />
-        <Line label="rola"     value={`"${role}"`}  type="str" />
-        <Line label="exp"      value={experience}   type="num" comment="// lata" />
+        <Line label="imię" value={`"${name}"`} type="str" />
+        <Line label="rola" value={`"${role}"`} type="str" />
+        <Line label="exp" value={experience} type="num" comment="// lata" />
 
         <div>
           &nbsp;&nbsp;
@@ -55,7 +57,7 @@ const Terminal = ({ name, role, experience, stack, available }: TerminalProps) =
         ))}
         <div>&nbsp;&nbsp;<span className={styles.arr}>{']'}</span>,</div>
 
-        <Line label="dostępny" value={available}    type="val" />
+        <Line label="lokalizacja" value={`"${location}"`} type="str" last />
         <div>{'}'} <span className={styles.cursor} /></div>
       </div>
     </div>

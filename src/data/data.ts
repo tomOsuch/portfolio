@@ -1,33 +1,55 @@
+export type TagVariant =
+  | 'java'
+  | 'spring'
+  | 'db'
+  | 'kafka'
+  | 'docker'
+  | 'test'
+  | 'fe'
+  | 'tool';
+
+export interface Tag {
+  label: string;
+  variant: TagVariant;
+}
+
 export interface HeroData {
   name: string;
   role: string;
   experience: number;
   location: string;
-  available: boolean;
   description: string;
   stack: string[];
   github: string;
   linkedin: string;
 }
 
+export interface ProjectLink {
+  label: string;
+  href: string;
+}
+
 export interface Project {
   id: number;
   name: string;
   description: string;
-  tags: {
-    label: string;
-    variant: 'java' | 'spring' | 'db' | 'kafka' | 'docker' | 'test' | 'fe' | 'tool';
-  }[];
-  github: string;
+  tags: Tag[];
+  links: ProjectLink[];
   icon: string;
-  inProgress?: boolean;
+  featured?: boolean;
+  status?: string;
+}
+
+export interface ExperienceRole {
+  title: string;
+  date: string;
 }
 
 export interface ExperienceItem {
   id: number;
   date: string;
   company: string;
-  role: string;
+  roles: ExperienceRole[];
   projects: {
     name: string;
     description: string;
@@ -37,21 +59,17 @@ export interface ExperienceItem {
 export interface TechCategory {
   id: number;
   label: string;
-  pills: {
-    label: string;
-    variant: 'java' | 'spring' | 'db' | 'kafka' | 'docker' | 'test' | 'fe' | 'tool';
-  }[];
+  pills: Tag[];
 }
 
 export const heroData: HeroData = {
   name: 'Tomasz Osuch',
-  role: 'Java & Backend Developer',
+  role: 'Java Developer',
   experience: 4,
-  location: 'Warszawa',
-  available: true,
+  location: 'Warszawa / zdalnie',
   description:
     'Buduję skalowalne systemy backendowe w architekturze mikroserwisów. Pracowałem przy krytycznych projektach dla Państwowego Ratownictwa Medycznego i NASK. Rozwijam kompetencje fullstack — React, TypeScript, Node.js.',
-  stack: ['Java 11, 21', 'Spring Boot', 'Mikroserwisy', 'Kafka', 'PostgreSQL'],
+  stack: ['Java 11, 21, 25', 'Spring Boot', 'Mikroserwisy', 'Kafka', 'PostgreSQL'],
   github: 'https://github.com/tomOsuch',
   linkedin: 'https://linkedin.com/in/tomasz-osuch',
 };
@@ -61,7 +79,11 @@ export const experienceData: ExperienceItem[] = [
     id: 1,
     date: 'kwi 2021 – sie 2025',
     company: 'WASKO S.A.',
-    role: 'Programista Java',
+    roles: [
+      { title: 'Starszy Programista Java', date: 'kwi 2023 – sie 2025' },
+      { title: 'Programista Java', date: 'cze 2022 – kwi 2023' },
+      { title: 'Młodszy Programista Java', date: 'kwi 2021 – cze 2022' },
+    ],
     projects: [
       {
         name: 'SWD — System Wspomagania Dowodzenia PRM',
@@ -84,7 +106,12 @@ export const experienceData: ExperienceItem[] = [
     id: 2,
     date: 'mar 2017 – mar 2021',
     company: 'WTW Polska',
-    role: 'Specjalista ds. systemów informatycznych i raportowania',
+    roles: [
+      {
+        title: 'Specjalista ds. systemów informatycznych i raportowania',
+        date: 'mar 2017 – mar 2021',
+      },
+    ],
     projects: [
       {
         name: 'Formularze ubezpieczeniowe i integracje',
@@ -100,13 +127,15 @@ export const technologiesData: TechCategory[] = [
     id: 1,
     label: 'Backend',
     pills: [
-      { label: 'Java 11/21', variant: 'java' },
+      { label: 'Java 11 / 21 / 25', variant: 'java' },
       { label: 'Spring Boot', variant: 'spring' },
       { label: 'Spring MVC', variant: 'spring' },
       { label: 'Spring Data', variant: 'spring' },
+      { label: 'Spring Security', variant: 'spring' },
       { label: 'Hibernate / JPA', variant: 'java' },
       { label: 'JDBC', variant: 'java' },
       { label: 'Mikroserwisy', variant: 'java' },
+      { label: 'REST API', variant: 'java' },
       { label: 'Kafka', variant: 'kafka' },
       { label: 'WSO2', variant: 'java' },
       { label: 'JavaFX', variant: 'java' },
@@ -122,6 +151,8 @@ export const technologiesData: TechCategory[] = [
       { label: 'MySQL', variant: 'db' },
       { label: 'MSSQL', variant: 'db' },
       { label: 'H2', variant: 'db' },
+      { label: 'Flyway', variant: 'db' },
+      { label: 'Liquibase', variant: 'db' },
     ],
   },
   {
@@ -152,10 +183,11 @@ export const technologiesData: TechCategory[] = [
     label: 'Narzędzia i metodyki',
     pills: [
       { label: 'Git', variant: 'tool' },
+      { label: 'Docker', variant: 'docker' },
       { label: 'Maven', variant: 'tool' },
       { label: 'Gradle', variant: 'tool' },
       { label: 'JIRA', variant: 'tool' },
-      { label: 'Swagger', variant: 'tool' },
+      { label: 'Swagger / OpenAPI', variant: 'tool' },
       { label: 'Scrum / Agile', variant: 'tool' },
       { label: 'Code Review', variant: 'tool' },
       { label: 'IntelliJ IDEA', variant: 'tool' },
@@ -175,6 +207,29 @@ export const technologiesData: TechCategory[] = [
 export const projectsData: Project[] = [
   {
     id: 1,
+    icon: '🏋️',
+    name: 'Platforma treningowa — aplikacja full-stack',
+    status: 'Projekt główny · w rozwoju',
+    featured: true,
+    description:
+      'Aplikacja webowa do planowania i rejestrowania treningów, budowana od podstaw — REST API i frontend SPA. Autoryzacja JWT z kontrolą dostępu opartą na rolach, architektura warstwowa, migracje Flyway, dokumentacja OpenAPI. 366 testów jednostkowych i integracyjnych.',
+    tags: [
+      { label: 'Java 25', variant: 'java' },
+      { label: 'Spring Boot 4', variant: 'spring' },
+      { label: 'PostgreSQL 15', variant: 'db' },
+      { label: 'Flyway', variant: 'db' },
+      { label: 'Docker', variant: 'docker' },
+      { label: 'JUnit 5', variant: 'test' },
+      { label: 'React 19', variant: 'fe' },
+      { label: 'TypeScript', variant: 'fe' },
+    ],
+    links: [
+      { label: 'Backend', href: 'https://github.com/tomOsuch/trainingplatform-backend' },
+      { label: 'Frontend', href: 'https://github.com/tomOsuch/trainingplatform-frontend' },
+    ],
+  },
+  {
+    id: 2,
     icon: '📚',
     name: 'REST API — Biblioteka',
     description:
@@ -185,10 +240,10 @@ export const projectsData: Project[] = [
       { label: 'JUnit 5', variant: 'test' },
       { label: 'Swagger', variant: 'tool' },
     ],
-    github: 'https://github.com/tomOsuch',
+    links: [{ label: 'GitHub', href: 'https://github.com/tomOsuch/kodilla-library' }],
   },
   {
-    id: 2,
+    id: 3,
     icon: '✅',
     name: 'Menedżer zadań — REST API',
     description:
@@ -199,10 +254,10 @@ export const projectsData: Project[] = [
       { label: 'Mockito', variant: 'test' },
       { label: 'TDD', variant: 'test' },
     ],
-    github: 'https://github.com/tomOsuch',
+    links: [{ label: 'GitHub', href: 'https://github.com/tomOsuch/kodilla-tasks' }],
   },
   {
-    id: 3,
+    id: 4,
     icon: '♟️',
     name: 'Gra w Warcaby',
     description:
@@ -213,10 +268,10 @@ export const projectsData: Project[] = [
       { label: 'Git', variant: 'tool' },
       { label: 'JIRA', variant: 'tool' },
     ],
-    github: 'https://github.com/tomOsuch',
+    links: [{ label: 'GitHub', href: 'https://github.com/tomOsuch/checkers-kodilla' }],
   },
   {
-    id: 4,
+    id: 5,
     icon: '🔢',
     name: 'Solver Sudoku',
     description:
@@ -226,22 +281,7 @@ export const projectsData: Project[] = [
       { label: 'JUnit 5', variant: 'test' },
       { label: 'OOP', variant: 'java' },
     ],
-    github: 'https://github.com/tomOsuch',
-  },
-  {
-    id: 5,
-    icon: '🚧',
-    name: 'Dashboard mikroserwisów',
-    description:
-      'W przygotowaniu — Spring Boot + React. Monitoring statusu serwisów w czasie rzeczywistym. Kafka, Docker Compose, TypeScript frontend.',
-    tags: [
-      { label: 'Spring Boot', variant: 'spring' },
-      { label: 'Kafka', variant: 'kafka' },
-      { label: 'React', variant: 'fe' },
-      { label: 'Docker', variant: 'docker' },
-    ],
-    github: 'https://github.com/tomOsuch',
-    inProgress: true,
+    links: [],
   },
 ];
 
@@ -270,11 +310,5 @@ export const contactData: ContactLink[] = [
     label: 'linkedin.com/in/tomasz-osuch',
     href: 'https://linkedin.com/in/tomasz-osuch',
     icon: 'linkedin',
-  },
-  {
-    id: 4,
-    label: '+48 510 658 837',
-    href: 'tel:+48510658837',
-    icon: 'phone',
   },
 ];

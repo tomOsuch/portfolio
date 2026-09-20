@@ -1,19 +1,18 @@
 import { heroData } from '../../data/data';
+import { pluralizeYears } from '../../utils/pluralizeYears';
 import Button from '../Button/Button';
 import Terminal from '../Terminal/Terminal';
 import styles from './Hero.module.scss';
 
 const Hero = () => {
-  const { name, role, experience, location, available, description, stack, github, linkedin } = heroData;
+  const { name, role, experience, location, description, stack, github, linkedin } = heroData;
   const [firstName, lastName] = name.split(' ');
 
   return (
     <section id="hero" className={styles.hero}>
       <div className={styles.inner}>
         <div className={styles.content}>
-          <div className={styles.tag}>
-            {available ? '● dostępny od zaraz' : '● niedostępny'} · {location}
-          </div>
+          <div className={styles.tag}>● {location}</div>
 
           <h1 className={styles.heading}>
             {firstName}
@@ -24,7 +23,7 @@ const Hero = () => {
           <div className={styles.subtitle}>
             <strong>{role}</strong>
             <br />
-            {experience} lata komercyjnego doświadczenia
+            {experience} {pluralizeYears(experience)} komercyjnego doświadczenia
           </div>
 
           <p className={styles.description}>{description}</p>
@@ -47,7 +46,7 @@ const Hero = () => {
           </div>
         </div>
 
-        <Terminal name={name} role={role} experience={experience} stack={stack} available={available} />
+        <Terminal name={name} role={role} experience={experience} stack={stack} location={location} />
       </div>
     </section>
   );
