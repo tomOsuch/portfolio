@@ -81,8 +81,8 @@ export const experienceData: ExperienceItem[] = [
     company: 'WASKO S.A.',
     roles: [
       { title: 'Starszy Programista Java', date: 'kwi 2023 – sie 2025' },
-      { title: 'Programista Java', date: 'cze 2022 – kwi 2023' },
-      { title: 'Młodszy Programista Java', date: 'kwi 2021 – cze 2022' },
+      { title: 'Programista Java', date: 'cze 2022 – mar 2023' },
+      { title: 'Młodszy Programista Java', date: 'kwi 2021 – maj 2022' },
     ],
     projects: [
       {

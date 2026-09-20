@@ -10,12 +10,12 @@ const Contact = () => {
   return (
     <section id="contact" className={styles.contact}>
       <div className="container">
-        <SectionHeader num="04." title="Kontakt" />
+        <SectionHeader num="04" title="Kontakt" />
         <div ref={ref} className={styles.inner}>
           <p className={styles.desc}>
             Szukam roli łączącej backend z frontendem.
             <br />
-            Dostępny od zaraz, Warszawa.
+            Warszawa lub zdalnie.
           </p>
           <div className={styles.links}>
             {contactData.map((item) => (
